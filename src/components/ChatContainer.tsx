@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -162,7 +161,7 @@ const ChatContainer = () => {
   }, [currentSession?.messages]);
 
   return (
-    <div className="flex h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="flex h-full bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Sidebar */}
       {sidebarOpen && (
         <ChatSidebar
@@ -178,9 +177,9 @@ const ChatContainer = () => {
       )}
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-0">
         {/* Header */}
-        <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200 p-4">
+        <div className="bg-white/80 backdrop-blur-sm border-b border-slate-200 p-4 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Button
@@ -215,9 +214,9 @@ const ChatContainer = () => {
         </div>
 
         {/* Chat Messages */}
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 min-h-0 overflow-hidden">
           <ScrollArea ref={scrollAreaRef} className="h-full">
-            <div className="max-w-7xl mx-auto p-4 space-y-6">
+            <div className="max-w-7xl mx-auto p-4 space-y-6 pb-4">
               {!currentSession || currentSession.messages.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -244,17 +243,17 @@ const ChatContainer = () => {
           </ScrollArea>
         </div>
 
-        {/* Input Area */}
-        <div className="bg-white/80 backdrop-blur-sm border-t border-slate-200 p-4">
+        {/* Input Area - Fixed at bottom */}
+        <div className="bg-white/90 backdrop-blur-sm border-t border-slate-200 p-4 flex-shrink-0">
           <div className="max-w-4xl mx-auto">
-            <div className="flex gap-3">
+            <div className="flex gap-3 items-end">
               <div className="flex-1 relative">
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="输入您的问题..."
-                  className="pr-12 py-3 text-base bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500/20"
+                  className="pr-12 py-3 text-base bg-white border-slate-300 focus:border-blue-500 focus:ring-blue-500/20 resize-none"
                   disabled={isLoading}
                 />
                 <Button
