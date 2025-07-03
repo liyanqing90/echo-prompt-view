@@ -1,8 +1,8 @@
 
-import ChatContainer from '@/components/ChatContainer';
+import MainLayout from '@/components/MainLayout';
 
 const Index = () => {
-  return <ChatContainer />;
+  return <MainLayout />;
 };
 
 export default Index;
