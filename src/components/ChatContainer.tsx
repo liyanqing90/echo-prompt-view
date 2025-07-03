@@ -64,10 +64,11 @@ const ChatContainer = () => {
   const enabledModels = models.filter(model => model.enabled);
 
   // 模拟AI回复
-  const simulateAIResponse = async (userMessage: string): Promise<ModelResponse[]> => {
+  const simulateAIResponse = async (userMessage: string, activeModels?: ModelConfig[]): Promise<ModelResponse[]> => {
+    const modelsToUse = activeModels || enabledModels;
     return new Promise((resolve) => {
       setTimeout(() => {
-        const responses = enabledModels.map(model => ({
+        const responses = modelsToUse.map(model => ({
           modelName: model.name,
           content: `这是来自${model.name}的回复：${userMessage}。我理解您的问题，这里是我的详细回答...`,
           prompt: model.prompt,
@@ -141,7 +142,12 @@ const ChatContainer = () => {
     }
   };
 
-  const handleCreateSession = () => {
+  const handleCreateSession = (selectedModels?: string[]) => {
+    // 如果指定了模型，临时切换到选中的模型进行对话
+    if (selectedModels && selectedModels.length > 0) {
+      // 这里可以根据需要存储会话特定的模型配置
+      console.log('Creating session with models:', selectedModels);
+    }
     createNewSession();
   };
 
@@ -167,6 +173,7 @@ const ChatContainer = () => {
           onDeleteSession={deleteSession}
           onUpdateSession={updateSession}
           onOpenModelSettings={() => setModelSettingsOpen(true)}
+          models={models}
         />
       )}
 
